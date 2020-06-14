@@ -70,7 +70,130 @@ const questions = [
         message: 'What is your email address?',
         default: 'email'
     }
-]
+];
+
+
+function init() {
+    inquirer
+        .prompt(questions).then((answer) => {
+
+            // Appends user project title response to readme file
+            fs.appendFileSync("README.md", ("# " + answer.title ) + '\n', function(err) {
+
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    console.log("Success")
+                }
+
+            })
+            
+            // Appends project description to readme file
+            fs.appendFileSync("README.md", ("## Description" + '\n' + answer.description ) + '\n', function(err) {
+
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    console.log("Success")
+                }
+
+            })
+            
+            // Appends installation instructions to readme file
+            fs.appendFileSync("README.md", ("## Installation" + '\n' + answer.installation ) + '\n', function(err) {
+
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    console.log("Success")
+                }
+
+            })
+            
+            // Appends usage instructions to readme file
+            fs.appendFileSync("README.md", ("## Usage Instructions" + '\n' + answer.usage ) + '\n', function(err) {
+
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    console.log("Success")
+                }
+
+            })
+            
+            // Appends contribution guidelines to readme file
+            fs.appendFileSync("README.md", ("## How to Contribute to the Application " + '\n' + answer.contribution ) + '\n', function(err) {
+
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    console.log("Success")
+                }
+
+            })
+            
+            // Appends testing instructions to readme file
+            fs.appendFileSync("README.md", ("## Testing Examples for the Application " + '\n' + answer.tests ) + '\n', function(err) {
+
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    console.log("Success")
+                }
+
+            })
+            
+            // Appends license selection to readme file
+            fs.appendFileSync("README.md", ("## License" + '\n' + answer.license ) + '\n', function(err) {
+
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    console.log("Success")
+                }
+
+            })
+            
+            // Appends GitHub username and email to readme file
+            fs.appendFileSync("README.md", ("## Questions" + '\n' + "Project developer's GitHub: " + answer.username + '\n' + "Contact the developer at: " + answer.email ) + '\n', function(err) {
+
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    console.log("Success")
+                }
+
+            })
+            
+            // // Appends GitHub email to readme file
+            // fs.appendFileSync("README.md", ("# " + answer.email ) + '\n', function(err) {
+
+            //     if (err) {
+            //         console.log(err)
+            //     }
+            //     else {
+            //         console.log("Success")
+            //     }
+
+            // })
+            
+
+        })
+}
+
+
+// Calls function to create readme file
+init();
+
+
 
 /**
  * 
