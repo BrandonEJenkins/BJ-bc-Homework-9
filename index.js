@@ -1,7 +1,7 @@
 // Commands to use modules
 const fs = require("fs");
 const inquirer = require("inquirer");
-const axios = require("axios");
+// const axios = require("axios");
 
 // Array of questions for user
 const questions = [
@@ -9,13 +9,39 @@ const questions = [
         type: 'input',
         name: 'title',
         message: 'What is the title of your project?',
-        default: 'title'
+        // default: 'title',
     },
     {
         type: 'input',
         name: 'description',
         message: 'How would you describe your project?',
         default: 'description'
+    },
+    {
+        type: 'checkbox',
+        name: 'contents',
+        message: 'Which section(s) do you want displayed in the Table of Contents?',
+        choices: [
+            {
+                name: 'Installation \n'
+                // checked: true
+            },
+            {
+                name: 'Usage \n'
+            },
+            {
+                name: 'License \n'
+            },
+            {
+                name: 'Contributing \n'
+            },
+            {
+                name: 'Tests \n'
+            },
+            {
+                name: 'Questions \n'
+            }
+        ]
     },
     {
         type: 'input',
@@ -44,7 +70,7 @@ const questions = [
     {
         type: 'checkbox',
         name: 'license',
-        message: 'Select an open source license for your project.',
+        message: 'Select an open source license(S) for your project.',
         choices: [
             {
                 name: 'MIT License',
@@ -56,7 +82,7 @@ const questions = [
             {
                 name: 'Apache License 2.0'
             }
-        ],
+        ]
     },
     {
         type: 'input',
@@ -75,22 +101,11 @@ const questions = [
 
 function init() {
     inquirer
-        .prompt(questions).then((answer) => {
+        .prompt(questions)
+            .then((answer) => {
 
-            // Appends user project title response to readme file
-            fs.appendFileSync("README.md", ("# " + answer.title ) + '\n', function(err) {
-
-                if (err) {
-                    console.log(err)
-                }
-                else {
-                    console.log("Success")
-                }
-
-            })
-            
-            // Appends project description to readme file
-            fs.appendFileSync("README.md", ("## Description" + '\n' + answer.description ) + '\n', function(err) {
+            // Creates and appends user project title response to readme file
+            fs.appendFileSync("READMEProj.md", ("# " + answer.title + '\n') + '\n', function(err) {
 
                 if (err) {
                     console.log(err)
@@ -101,8 +116,32 @@ function init() {
 
             })
             
+            // Creates and appends project description to readme file
+            fs.appendFileSync("READMEProj.md", ("## Description" + '\n' + answer.description + '\n') + '\n', function(err) {
+
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    console.log("Success")
+                }
+
+            })
+            
+            // Creates and appends table of contents to readme file
+            fs.appendFileSync("READMEProj.md", ("## Table of Contents" + '\n' + answer.contents + '\n') + '\n', function(err) {
+
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    console.log("Success")
+                }
+
+            })
+
             // Appends installation instructions to readme file
-            fs.appendFileSync("README.md", ("## Installation" + '\n' + answer.installation ) + '\n', function(err) {
+            fs.appendFileSync("READMEProj.md", ("## Installation" + '\n' + answer.installation + '\n') + '\n', function(err) {
 
                 if (err) {
                     console.log(err)
@@ -114,7 +153,7 @@ function init() {
             })
             
             // Appends usage instructions to readme file
-            fs.appendFileSync("README.md", ("## Usage Instructions" + '\n' + answer.usage ) + '\n', function(err) {
+            fs.appendFileSync("READMEProj.md", ("## Usage Instructions" + '\n' + answer.usage + '\n') + '\n', function(err) {
 
                 if (err) {
                     console.log(err)
@@ -124,9 +163,9 @@ function init() {
                 }
 
             })
-            
+
             // Appends contribution guidelines to readme file
-            fs.appendFileSync("README.md", ("## How to Contribute to the Application " + '\n' + answer.contribution ) + '\n', function(err) {
+            fs.appendFileSync("READMEProj.md", ("## How to Contribute to the Application " + '\n' + answer.contribution + '\n') + '\n', function(err) {
 
                 if (err) {
                     console.log(err)
@@ -136,9 +175,9 @@ function init() {
                 }
 
             })
-            
+
             // Appends testing instructions to readme file
-            fs.appendFileSync("README.md", ("## Testing Examples for the Application " + '\n' + answer.tests ) + '\n', function(err) {
+            fs.appendFileSync("READMEProj.md", ("## Testing Examples for the Application " + '\n' + answer.tests + '\n') + '\n', function(err) {
 
                 if (err) {
                     console.log(err)
@@ -148,9 +187,9 @@ function init() {
                 }
 
             })
-            
+
             // Appends license selection to readme file
-            fs.appendFileSync("README.md", ("## License" + '\n' + answer.license ) + '\n', function(err) {
+            fs.appendFileSync("READMEProj.md", ("## License" + '\n' + answer.license + '\n') + '\n', function(err) {
 
                 if (err) {
                     console.log(err)
@@ -160,9 +199,9 @@ function init() {
                 }
 
             })
-            
+
             // Appends GitHub username and email to readme file
-            fs.appendFileSync("README.md", ("## Questions" + '\n' + "Project developer's GitHub: " + answer.username + '\n' + "Contact the developer at: " + answer.email ) + '\n', function(err) {
+            fs.appendFileSync("READMEProj.md", ("## Questions" + '\n' + "Project developer's GitHub: " + answer.username + '\n' + "Contact the developer at: " + answer.email + '\n') + '\n', function(err) {
 
                 if (err) {
                     console.log(err)
@@ -171,10 +210,10 @@ function init() {
                     console.log("Success")
                 }
 
-            })
+            });
             
             // // Appends GitHub email to readme file
-            // fs.appendFileSync("README.md", ("# " + answer.email ) + '\n', function(err) {
+            // fs.appendFileSync("READMEProj.md", ("# " + answer.email ) + '\n', function(err) {
 
             //     if (err) {
             //         console.log(err)
@@ -186,14 +225,17 @@ function init() {
             // })
             
 
-        })
-}
+        }
+    );
+};
 
 
 // Calls function to create readme file
 init();
 
 
+// Print responses to console
+// console.log(answer);
 
 /**
  * 
